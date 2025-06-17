@@ -1,7 +1,7 @@
 import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from SauceDemoBot.pages.cart_page import CartPage
 from SauceDemoBot.pages.login_page import LoginPage
 from SauceDemoBot.pages.inventory_page import InventoryPage
 
@@ -41,6 +41,14 @@ def test_add_all_to_cart_variants(driver, username, expected_count):
 
     num_added_items = len(added_items)
     assert num_added_items == expected_count, f"expected {expected_count} items, got {num_added_items} , check {added_items}" #problem user should error
+
+def test_cart(logged_in_driver):
+    inventory_page = InventoryPage(logged_in_driver)
+    added_items = inventory_page.add_all_to_cart()
+
+    cart_page = CartPage(logged_in_driver)
+    cart_page.check_cart_items(expected_names=added_items)
+
 
 #parametrize()
 
