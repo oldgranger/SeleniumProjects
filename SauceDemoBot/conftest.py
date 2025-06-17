@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from SauceDemoBot.pages.login_page import LoginPage
-from SauceDemoBot.pages.inventory_page import InventoryPage
+
 
 @pytest.fixture
 def driver():
@@ -24,9 +24,3 @@ def logged_in_driver(driver):
     login_page = LoginPage(driver)
     login_page.login("standard_user", "secret_sauce")
     return driver
-
-@pytest.fixture
-def full_cart_driver(logged_in_driver):
-    inventory_page = InventoryPage(logged_in_driver)
-    inventory_page.add_all_to_cart()
-    return logged_in_driver
