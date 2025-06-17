@@ -11,7 +11,7 @@ class CartPage(BasePage):
     def open_cart(self):
         self.click(self.CART_BUTTON)
 
-    def check_cart_items(self, expected_names):
+    def check_cart_items(self):
         self.open_cart()
         cart_names = []
         cart_prices = []
@@ -24,9 +24,5 @@ class CartPage(BasePage):
             cart_price = item.find_element(*self.CART_ITEM_PRICE).text
             cart_prices.append(float(cart_price))
 
-
-        for expected in expected_names:
-            assert expected in cart_names, f"[FAIL] '{expected}' not found in cart! {cart_names}"
-
-        return sum(cart_prices)
+        return cart_names, cart_prices
 

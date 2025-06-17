@@ -47,8 +47,10 @@ def test_cart(logged_in_driver):
     added_items = inventory_page.add_all_to_cart()
 
     cart_page = CartPage(logged_in_driver)
-    cart_page.check_cart_items(expected_names=added_items)
+    cart_names, cart_prices = cart_page.check_cart_items()
 
+    for expected in added_items:
+        assert expected in cart_names, f"[FAIL] '{expected}' not found in cart! REFER: {added_items}"
 
 #parametrize()
 
