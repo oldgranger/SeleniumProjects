@@ -1,7 +1,10 @@
+import time
+
 import pytest
 from selenium.webdriver.common.by import By
 
 from SauceDemoBot.pages.cart_page import CartPage
+from SauceDemoBot.pages.checkout_page import CheckoutPage
 from SauceDemoBot.pages.login_page import LoginPage
 from SauceDemoBot.pages.inventory_page import InventoryPage
 
@@ -29,7 +32,7 @@ def test_add_all_to_cart(logged_in_driver):
 
 @pytest.mark.parametrize("username,expected_count", [
     ("standard_user", 6),
-    ("problem_user", 6),
+    pytest.param("problem_user", 6, marks=pytest.mark.xfail(reason="problem_user is expected to fail")),
 ])
 #problem_user should trigger assertion
 def test_add_all_to_cart_variants(driver, username, expected_count):
@@ -52,6 +55,44 @@ def test_cart(logged_in_driver):
     for expected in added_items:
         assert expected in cart_names, f"[FAIL] '{expected}' not found in cart! REFER: {added_items}"
 
-#parametrize()
+@pytest.mark.parametrize(
+    ["first_name", "last_name", "postal_code", "expect_success"],
+    [
+        ("testfname", "testlname", "123", True),
+        ("", "testlname", "123", False),
+        ("testfname", "", "123", False),
+        ("testfname", "testlname", "", False),
+    ]
+)
+def test_checkout_form(logged_in_driver, first_name, last_name, postal_code, expect_success):
+    inventory_page = InventoryPage(logged_in_driver)
+    inventory_page.add_all_to_cart()
+    cart_page = CartPage(logged_in_driver)
+    cart_page.check_cart_items()
+    checkout_page = CheckoutPage(logged_in_driver)
+    checkout_page.open_checkout()
+    error_text = checkout_page.fill_checkout_form(first_name, last_name, postal_code)
+
+    if expect_success:
+        assert "checkout-step-two" in logged_in_driver.current_url, "DID NOT CONTINUE TO FINISH CHECKOUT"
+    else:
+        assert "Error" in error_text, "SHOULD ERROR FOR BLANK INPUTS"
+
+
+def test_checkout_prices(logged_in_driver):
+    inventory_page = InventoryPage(logged_in_driver)
+    inventory_page.add_all_to_cart()
+    cart_page = CartPage(logged_in_driver)
+    cart_names, cart_prices = cart_page.check_cart_items()
+
+    cart_total = sum(cart_prices)
+
+    checkout_page = CheckoutPage(logged_in_driver)
+    checkout_total = checkout_page.confirm_checkout(first_name="testFName", last_name="testLName", postal_code="1234")
+
+    assert cart_total == checkout_total, f"Cart price and checkout price does not match! refer cart:{cart_prices} checkout:{checkout_total}"
+
+
+
 
 

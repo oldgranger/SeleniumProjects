@@ -7,6 +7,7 @@ from SauceDemoBot.pages.login_page import LoginPage
 def driver():
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
+    options.add_argument("--guest")
     options.add_argument("--disable-features=PasswordCheck")
     options.add_argument("--disable-popup-blocking")
     options.add_experimental_option("prefs", {
