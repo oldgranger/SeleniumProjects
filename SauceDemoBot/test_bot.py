@@ -5,6 +5,7 @@ from SauceDemoBot.pages.cart_page import CartPage
 from SauceDemoBot.pages.checkout_page import CheckoutPage
 from SauceDemoBot.pages.login_page import LoginPage
 from SauceDemoBot.pages.inventory_page import InventoryPage
+from SauceDemoBot.pages.checkoutcomplete_page import CheckoutCompletePage
 
 @pytest.mark.parametrize("username,expect_success", [
     ("standard_user", True),
@@ -91,6 +92,17 @@ def test_checkout_prices(logged_in_driver):
     assert cart_total == checkout_total, f"Cart price and checkout price does not match! refer cart:{cart_prices} checkout:{checkout_total}"
 
 
+def test_finish_checkout(logged_in_driver):
 
+    inventory_page = InventoryPage(logged_in_driver)
+    inventory_page.add_all_to_cart()
+    cart_page = CartPage(logged_in_driver)
+    cart_page.check_cart_items()
+    checkout_page = CheckoutPage(logged_in_driver)
+    checkout_page.confirm_checkout(first_name="testFName", last_name="testLName", postal_code="1234")
+    checkout_complete_page = CheckoutCompletePage(logged_in_driver)
+    confirm_text = checkout_complete_page.finish_checkout()
+
+    assert "THANK YOU FOR YOUR ORDER" in confirm_text
 
 
