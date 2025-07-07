@@ -1,0 +1,33 @@
+2025-07-07 22:56:12,998 [INFO] [START] test_login_variants for user: 'standard_user', expecting success: 'True'
+2025-07-07 22:56:20,819 [INFO] [PASS] Login successful for user='standard_user'
+2025-07-07 22:56:24,829 [INFO] [START] test_login_variants for user: 'locked_out_user', expecting success: 'False'
+2025-07-07 22:56:34,730 [ERROR] [XFAIL](expected) Login failed for user='locked_out_user'
+2025-07-07 22:56:38,740 [INFO] [START] test_login_variants for user: 'problem_user', expecting success: 'True'
+2025-07-07 22:56:46,306 [INFO] [PASS] Login successful for user='problem_user'
+2025-07-07 22:57:19,221 [INFO] [START] test_add_all_to_cart for user: 'standard_user'
+2025-07-07 22:57:19,538 [INFO] [PASS] All items added to cart for user: 'standard_user', ref: ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
+2025-07-07 22:57:23,625 [INFO] [START] test_add_all_to_cart_variants for user: 'standard_user', expecting '6' items
+2025-07-07 22:57:31,400 [INFO] logged in as user: 'standard_user'
+2025-07-07 22:57:35,682 [INFO] [START] test_add_all_to_cart_variants for user: 'problem_user', expecting '6' items
+2025-07-07 22:57:43,352 [INFO] logged in as user: 'problem_user'
+2025-07-07 22:57:43,698 [ERROR] [FAIL] expected 6 items, got 3, check ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Onesie']
+2025-07-07 22:57:55,491 [INFO] [START] test_cart for user: 'standard_user'
+2025-07-07 22:57:55,806 [INFO] Added items: ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
+2025-07-07 22:57:56,300 [INFO] Cart contains: ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
+2025-07-07 22:57:56,300 [INFO] [PASS] All items added are shown in cart
+2025-07-07 22:58:29,146 [INFO] [START] test_checkout_form | expecting success: True | first_name='testfname' last_name='testlname' postal_code='123'
+2025-07-07 22:58:35,592 [INFO] After form submit | URL: https://www.saucedemo.com/v1/checkout-step-two.html | error_text: ''
+2025-07-07 22:58:35,595 [INFO] [PASS] Checkout successful (all fields filled out)
+2025-07-07 22:58:47,693 [INFO] [START] test_checkout_form | expecting success: False | first_name='' last_name='testlname' postal_code='123'
+2025-07-07 22:58:48,490 [INFO] After form submit | URL: https://www.saucedemo.com/v1/checkout-step-one.html | error_text: 'Error: First Name is required'
+2025-07-07 22:58:48,490 [INFO] [PASS] Checkout failed as expected (blank or invalid inputs)
+2025-07-07 22:59:00,575 [INFO] [START] test_checkout_form | expecting success: False | first_name='testfname' last_name='' postal_code='123'
+2025-07-07 22:59:01,335 [INFO] After form submit | URL: https://www.saucedemo.com/v1/checkout-step-one.html | error_text: 'Error: Last Name is required'
+2025-07-07 22:59:01,335 [INFO] [PASS] Checkout failed as expected (blank or invalid inputs)
+2025-07-07 22:59:13,053 [INFO] [START] test_checkout_form | expecting success: False | first_name='testfname' last_name='testlname' postal_code=''
+2025-07-07 22:59:13,811 [INFO] After form submit | URL: https://www.saucedemo.com/v1/checkout-step-one.html | error_text: 'Error: Postal Code is required'
+2025-07-07 22:59:13,812 [INFO] [PASS] Checkout failed as expected (blank or invalid inputs)
+2025-07-07 22:59:46,639 [INFO] [START] test_checkout_prices
+2025-07-07 22:59:52,515 [INFO] [PASS] Prices match for cart and checkout; cart:$[29.99, 9.99, 15.99, 49.99, 7.99, 15.99] | checkout:$129.94
+2025-07-07 23:00:05,115 [INFO] [START] test_finish_checkout
+2025-07-07 23:00:11,523 [INFO] [PASS] Checkout successful, confirm text is 'THANK YOU FOR YOUR ORDER'
