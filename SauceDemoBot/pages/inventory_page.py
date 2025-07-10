@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from .base_page import BasePage
+from SauceDemoBot.pages.base_page import BasePage
 
 class InventoryPage(BasePage):
     INVENTORY_ITEM = (By.XPATH, "//div[@class='inventory_item']")

@@ -30,14 +30,6 @@ def test_login_variants(driver, username, expect_success):
     else:
         logger.error(f"[XFAIL](expected) Login failed for user='{username}'")
 
-#singled out test for standard_user
-def test_add_all_to_cart(logged_in_driver):
-    logger.info(f"[START] test_add_all_to_cart for user: 'standard_user'")
-    inventory_page = InventoryPage(logged_in_driver)
-    added_items = inventory_page.add_all_to_cart()
-    assert len(added_items) == 6, f"not all items were added, check {added_items}"
-    logger.info(f"[PASS] All items added to cart for user: 'standard_user', ref: {added_items}")
-
 @pytest.mark.parametrize("username,expected_count", [
     ("standard_user", 6),
     pytest.param("problem_user", 6, marks=pytest.mark.xfail(reason="problem_user is expected to fail")),
