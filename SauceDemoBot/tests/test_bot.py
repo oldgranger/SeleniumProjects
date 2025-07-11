@@ -47,6 +47,8 @@ def test_add_all_to_cart_variants(driver, username, expected_count):
     num_added_items = len(added_items)
     if num_added_items != expected_count:
         logger.error(f"[FAIL] expected {expected_count} items, got {num_added_items}, check {added_items}")
+    else:
+        logger.info(f"[PASS] expected {expected_count}, got {num_added_items} items")
     assert num_added_items == expected_count, f"expected {expected_count} items, got {num_added_items}"
 
 
@@ -125,7 +127,7 @@ def test_checkout_prices(logged_in_driver):
         logger.error(f"[FAIL] cart_total: '${cart_total}' | checkout_total: '${checkout_total}'")
 
     assert cart_total == checkout_total, f"Cart price and checkout price does not match! refer cart:{cart_prices} checkout:{checkout_total}"
-    logger.info(f"[PASS] Prices match for cart and checkout; cart:${cart_prices} | checkout:${checkout_total}")
+    logger.info(f"[PASS] Prices match for cart and checkout; cart:${cart_total} | checkout:${checkout_total}")
 
 def test_finish_checkout(logged_in_driver):
     logger.info(f"[START] test_finish_checkout")
