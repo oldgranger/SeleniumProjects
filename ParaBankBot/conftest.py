@@ -1,6 +1,9 @@
 import pytest
 from selenium import webdriver
 
+from ParaBankBot.pages.start_page import StartPage
+
+
 def pytest_addoption(parser):
     parser.addoption(
         "--headless", action="store_true", default=False, help="Run browser in headless mode"
@@ -26,3 +29,10 @@ def parabankdriver(request):
     driver.implicitly_wait(5)
     yield driver
     driver.quit()
+
+@pytest.fixture
+def logged_in_parabankdriver(parabankdriver):
+    start_page = StartPage(parabankdriver)
+    start_page.login(username='john', password='demo')
+    return parabankdriver
+
